@@ -27,7 +27,6 @@ namespace WebApplication.Controllers
             {
                 return View();
             }
-            var usersWithFullName = _db.Users.ToList();
             return View(users.ToList());
         }
 
