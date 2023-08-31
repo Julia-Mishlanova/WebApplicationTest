@@ -1,0 +1,33 @@
+﻿@using System.Security.Claims
+@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+    {
+        Layout = (string)parentLayout;
+    }
+    else
+    {
+        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+    }
+}
+
+<h2>Manage your account</h2>
+
+<div>
+    <h4>Change your account settings</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="col-md-9">
+            @RenderBody()
+            <form id="deleteForm" asp-action="DeleteUser" asp-controller="Account" asp-route-userId="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" method="post">
+                <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить аккаунт?')">Удалить аккаунт</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
